@@ -52,9 +52,9 @@ Now we want to be able to exec into the `sleepy` container and talk to socat ove
 To do that we need to run a lennut _server_ inside the same network namespace.
 
 ```
-$ docker run --rm -d --name pbanks/lennut \
+$ docker run --rm -d --name lennut \
   --network=container:sleepy \
-  lennut -bind-proxy localhost:8080
+  pbanks/lennut -bind-proxy localhost:8080
 ```
 
 This will proxy connections to `localhost:8080` to any waiting clients which may
@@ -73,8 +73,7 @@ And finally we can test it be execing into our `sleepy` container and netcatting
 back to the echo server.
 
 ```
-$ docker exec -it sleepy sh
-/ # nc localhost 8080
+$ docker exec -it sleepy nc localhost 8080
 asd
 asd
 hello

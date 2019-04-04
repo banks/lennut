@@ -31,7 +31,10 @@ func (c *Client) Run() error {
 		}
 		wait := time.Duration(waitS) * time.Second
 		log.Printf("ERR %s, retry in %s: %s", where, wait, err)
-		time.Sleep(wait)
+		select {
+		case <-time.After(wait):
+		case <-c.stopCh:
+		}
 		waitS *= 1.5
 	}
 
