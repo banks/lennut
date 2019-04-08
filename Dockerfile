@@ -1,7 +1,7 @@
 # build stage
 FROM golang:1.12.1-alpine AS build-env
 ADD . /src
-RUN cd /src && go build -o lennut
+RUN cd /src && go build ./cmd/lennut
 
 # final stage
 FROM alpine
